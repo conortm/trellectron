@@ -1,0 +1,17 @@
+{
+  "name": "trellectron",
+  "version": "0.0.0",
+  "description": "An Electron wrapper for Trello",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/conortm/trellectron.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron-prebuilt": "^1.1.2"
+  }
+}
