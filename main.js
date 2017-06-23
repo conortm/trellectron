@@ -3,17 +3,22 @@ const electron = require('electron')
 const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
+// Module to create menu.
+const Menu = electron.Menu
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+
+// App-specific.
+const appName = 'Trello'
 
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    title: 'Trello',
+    title: appName,
     icon: 'icon.png'
   })
 
@@ -30,6 +35,31 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  const template = [
+    {
+      label: appName,
+      submenu: [
+        { label: `About ${appName}`, selector: 'orderFrontStandardAboutPanel:' },
+        { type: 'separator' },
+        { label: `Quit ${appName}`, accelerator: 'Command+Q', click: function() { app.quit(); }}
+      ]
+    },
+    {
+      label: 'Edit',
+      submenu: [
+        { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
+        { label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', selector: 'redo:' },
+        { type: 'separator' },
+        { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
+        { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
+        { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
+        { label: 'Select All', accelerator: 'CmdOrCtrl+A', selector: 'selectAll:' }
+      ]
+    }
+  ]
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 }
 
 // This method will be called when Electron has finished
